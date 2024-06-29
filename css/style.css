@@ -1,0 +1,25 @@
+body{
+    background:linear-gradient(90deg,#E7D4B5,white 90%);
+}
+h1{
+    text-align: center;
+    color: brown;
+}
+.heading{
+    font-size: 30pt;
+}
+.translate{
+    font-weight: 700;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+textarea{
+    width: 100%;
+    height: 500px;
+}
+select {
+    appearance: listbox !important;
+}
