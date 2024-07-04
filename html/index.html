@@ -13,7 +13,7 @@
       <span class="heading">अ</span>NUVAADAK
       </b>
     </h1>
-    <form action="" method="get" id="languageForm">
+    <form id="languageForm">
       <div class="container drop-down">
         <div class="row" >
           <div class="col-6">
@@ -21,22 +21,23 @@
               <label for="inputLanguage" class="mt-2"><h6>Source Language:</h6></label>
             </div>
             <div class="col">
-              <select class="form-control form-control-sm" id="inputLanguage" form="languageForm"  required>
+              <select class="form-control form-control-sm" id="inputLanguage" required>
                 <option value="" disabled selected hidden>Source language</option>
-                <option value="en">English</option>
-                <option value="bn">Assamese</option>
-                <option value="bn">Bengali</option>
-                <option value="gu">Gujarati</option>
-                <option value="hi">Hindi</option>
-                <option value="kn">Kannada</option>
-                <option value="ml">Malayalam</option>
-                <option value="mr">Marathi</option>
-                <option value="hi">Nepali</option>
-                <option value="or">Odia</option>
-                <option value="pu">Punjabi</option>
-                <option value="ta">Tamil</option>
-                <option value="te">Telugu</option>
-                <option value="ur">Urdu</option>
+                <option value="eng_Latn">English</option>
+                <option value="asm_Beng">Assamese</option>
+                <option value="ben_Beng">Bengali</option>
+                <option value="guj_Gujr">Gujarati</option>
+                <option value="hin_Deva">Hindi</option>
+                <option value="kan_Knda">Kannada</option>
+                <option value="mal_Mlym">Malayalam</option>
+                <option value="mar_Deva">Marathi</option>
+                <option value="npi_Deva">Nepali</option>
+                <option value="ory_Orya">Odia</option>
+                <option value="pan_Guru">Punjabi</option>
+                <option value="san_Deva">Sanskrit</option>
+                <option value="tam_Taml">Tamil</option>
+                <option value="tel_Telu">Telugu</option>
+                <option value="unr_Deva">Urdu</option>
               </select>
             </div>
           </div>
@@ -45,22 +46,23 @@
               <label for="outputLanguage" class="mt-2"><h6>Target Language:</h6></label>
               </div>
             <div class="col">
-              <select class="form-control form-control-sm" id="outputLanguage" form="languageForm" required>
-                <option value="" disabled selected hidden>Target language</option>
-                <option value="hi">Hindi</option>
-                <option value="bn">Assamese</option>
-                <option value="bn">Bengali</option>
-                <option value="en">English</option>
-                <option value="gu">Gujarati</option>
-                <option value="kn">Kannada</option>
-                <option value="ml">Malayalam</option>
-                <option value="mr">Marathi</option>
-                <option value="hi">Nepali</option>
-                <option value="or">Odia</option>
-                <option value="pu">Punjabi</option>
-                <option value="ta">Tamil</option>
-                <option value="te">Telugu</option>
-                <option value="ur">Urdu</option>
+              <select class="form-control form-control-sm" id="outputLanguage" required>
+                <option value="" disabled selected hidden>Source language</option>
+                <option value="eng_Latn">English</option>
+                <option value="asm_Beng">Assamese</option>
+                <option value="ben_Beng">Bengali</option>
+                <option value="guj_Gujr">Gujarati</option>
+                <option value="hin_Deva">Hindi</option>
+                <option value="kan_Knda">Kannada</option>
+                <option value="mal_Mlym">Malayalam</option>
+                <option value="mar_Deva">Marathi</option>
+                <option value="npi_Deva">Nepali</option>
+                <option value="ory_Orya">Odia</option>
+                <option value="pan_Guru">Punjabi</option>
+                <option value="san_Deva">Sanskrit</option>
+                <option value="tam_Taml">Tamil</option>
+                <option value="tel_Telu">Telugu</option>
+                <option value="unr_Deva">Urdu</option>
               </select>
             </div>
           </div>
@@ -70,21 +72,43 @@
     <div class="container mt-4">
       <div class="row">
         <div class="col-6">
-          <textarea class="form-control" id="inputText" form="languageForm" required></textarea>
+          <textarea class="form-control" id="inputText" placeholder="Enter text to translate" required></textarea>
         </div>
         <div class="col-6">
-          <textarea class="form-control" ></textarea>
+          <textarea class="form-control" id="outputText" placeholder="Translated text will appear here" readonly></textarea>
         </div>
       </div>
     </div>
-
     <div class="translate">
-      <button form="languageForm" type="submit" class="btn btn-outline-dark mt-4 fw-bold">TRANSLATE</button>
+      <button type="button" class="btn btn-outline-dark mt-4 fw-bold" onclick="translateText()">TRANSLATE</button>
     </div>
     <div class="footer">
       <footer>
         <hr size="20"/>
+        <p>Made with ❤️ and ☕ by Shreya Aswal</p>
       </footer>
     </div>
-  </body>
-</html>
+
+    <script>
+      async function translateText() {
+        const sourceLang = document.getElementById('inputLanguage').value;
+        const targetLang = document.getElementById('outputLanguage').value;
+        const inputText = document.getElementById('inputText').value;
+
+        const response = await fetch('/translate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            source_lang: sourceLang,
+            target_lang: targetLang,
+            input_sentence: inputText
+          })
+        });
+
+        const data = await response.json();
+        console.log(data);
+        document.getElementById('outputText').value = data.translation;
+      }
+    </script>

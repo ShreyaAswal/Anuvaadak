@@ -1,12 +1,11 @@
 body{
-    background:linear-gradient(90deg,#E7D4B5,white 90%);
+    background:linear-gradient(90deg,rgb(250, 223, 173),rgb(255, 177, 177) 150%);
 }
 h1{
     text-align: center;
-    color: brown;
 }
 .heading{
-    font-size: 30pt;
+    font-size: 35pt;
 }
 .translate{
     font-weight: 700;
@@ -22,4 +21,9 @@ textarea{
 }
 select {
     appearance: listbox !important;
+}
+footer p{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    color: gray;
 }
