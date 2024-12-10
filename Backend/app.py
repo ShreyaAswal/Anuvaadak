@@ -14,11 +14,13 @@ def load_model(source_lang, target_lang):
         return "indic-en"
     else:
         return "indic-indic"
-
+    
+#rendering the index.html as homepage in our route URL
 @app.route('/')
 def home():
     return render_template('index.html')
 
+#endpoint =translate, handling post request
 @app.route('/translate', methods=['POST'])
 def translate():
     data = request.json
